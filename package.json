@@ -1,0 +1,37 @@
+{
+  "name": "json-hash",
+  "version": "0.0.0",
+  "description": "JSON hash",
+  "main": "index.js",
+  "scripts": {
+    "test": "bin/grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mirek/node-json-hash.git"
+  },
+  "keywords": [
+    "json",
+    "hash",
+    "hashing",
+    "sha",
+    "sha1",
+    "sha256",
+    "array",
+    "object"
+  ],
+  "author": "Mirek Rusin http://github.com/mirek",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mirek/node-json-hash/issues"
+  },
+  "homepage": "https://github.com/mirek/node-json-hash",
+  "devDependencies": {
+    "coffee-script": "^1.7.1",
+    "grunt-contrib-watch": "^0.6.0",
+    "grunt": "^0.4.4",
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-mocha-test": "^0.10.0",
+    "grunt-codo": "^0.1.0"
+  }
+}
