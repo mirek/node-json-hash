@@ -3,14 +3,13 @@ crypto = require 'crypto'
 # Compute hash for JSON object.
 # @param [Object] a
 # @param [Object] options
-# @option options 
-# @returns Digest hash
-digest = (a, options = {}, stack = []) ->
-  algo = options.algo or 'sha1'
+# @option options [String] algorithm Defaults to sha1
+# @option options [String] encoding Defaults to hex
+# @returns Digest hash with specifed encoding
+digest = (a, options = {}) ->
+  algorithm = options.algorithm or 'sha1'
   encoding = options.encoding or 'hex'
-  map = options.map or (v, k, s) -> v
-
-  hash = crypto.createHash algo
+  hash = crypto.createHash algorithm
   switch
     when a is null
       hash.update 'n'
@@ -24,13 +23,13 @@ digest = (a, options = {}, stack = []) ->
       hash.update ['s', a.toString()].join(':')
     when a instanceof Array
       hash.update '['
-      for element in a
-        hash.update ['a', jsonHash(algo, element)].join(':')
+      for element, i in a
+        hash.update ['a', digest(element, options)].join(':')
       hash.update ']'
     when a.constructor is Object
       hash.update '{'
       for key in Object.keys(a).sort()
-        hash.update ['k', jsonHash(algo, key), 'v', jsonHash(algo, a[key])].join(':')
+        hash.update ['k', digest(key, options), 'v', digest(a[key], options)].join(':')
       hash.update '}'
     else
       throw new Error 'Unsupported type.'

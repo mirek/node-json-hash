@@ -1,6 +1,6 @@
 {
   "name": "json-hash",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "JSON hash",
   "main": "index.js",
   "scripts": {
