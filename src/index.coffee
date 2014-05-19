@@ -13,24 +13,32 @@ digest = (a, options = {}) ->
   switch
     when a is null
       hash.update 'n'
+
     when a is false, a is true, a instanceof Boolean
       hash.update ['f', a.valueOf()].join(':')
 
     # NOTE: All numbers are doubles in javascript json
     when (typeof a is 'number') or a instanceof Number
       hash.update ['i', a.toString()].join(':')
+
     when typeof a is 'string' or a instanceof String
       hash.update ['s', a.toString()].join(':')
+
+    when a instanceof RegExp
+      hash.update ['x', a.toString()].join(':')
+
     when a instanceof Array
       hash.update '['
       for element, i in a
         hash.update ['a', digest(element, options)].join(':')
       hash.update ']'
+
     when a.constructor is Object
       hash.update '{'
       for key in Object.keys(a).sort()
         hash.update ['k', digest(key, options), 'v', digest(a[key], options)].join(':')
       hash.update '}'
+
     else
       throw new Error 'Unsupported type.'
   hash.digest encoding
