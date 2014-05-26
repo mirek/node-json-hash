@@ -24,6 +24,9 @@ digest = (a, options = {}) ->
     when typeof a is 'string' or a instanceof String
       hash.update ['s', a.toString()].join(':')
 
+    when a instanceof Date
+      hash.update ['d', a.toISOString()].join(':')
+
     when a instanceof RegExp
       hash.update ['x', a.toString()].join(':')
 
@@ -36,7 +39,10 @@ digest = (a, options = {}) ->
     when a.constructor is Object
       hash.update '{'
       for key in Object.keys(a).sort()
-        hash.update ['k', digest(key, options), 'v', digest(a[key], options)].join(':')
+        hash.update [
+          'k', digest(key, options)
+          'v', digest(a[key], options)
+        ].join(':')
       hash.update '}'
 
     else
