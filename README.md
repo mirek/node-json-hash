@@ -18,4 +18,4 @@ If you want to use nodejs one, pass `hash.digest(foo, { crypto: require('crypto'
 
 ## Changes
 
-* 0.1.0 - defaults to internal js implementation of sha1, pass { crypto: require('crypto') } to use nodejs one.
+* 2.0.0 - defaults to internal js implementation of sha1, pass { crypto: require('crypto') } to use nodejs one.
