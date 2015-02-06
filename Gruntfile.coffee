@@ -10,7 +10,9 @@ module.exports = (grunt) ->
     pkg: grunt.file.readJSON 'package.json'
 
     copy:
-      crypto: 'lib/crypto.js': 'src/crypto.js'
+      crypto:
+        files:
+          'lib/crypto.js': 'src/crypto.js'
 
     coffee:
       compile:
