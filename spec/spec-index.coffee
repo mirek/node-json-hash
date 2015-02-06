@@ -1,9 +1,13 @@
 assert = require 'assert'
-jsonHash = require '../src'
+hash = require '../src'
+
+d = (a) ->
+  cryptos = hash.digest a, { crypto: require('crypto') }
+  ours = hash.digest a
+  assert.equal cryptos, ours
+  ours
 
 describe 'jsonHash', ->
-
-  d = jsonHash.digest
 
   it 'should have same hashes', ->
     assert.equal d(new Object()), d({})
