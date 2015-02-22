@@ -12,7 +12,7 @@ Generates hash for JSON objects.
     // hash.digest(any, options?)
     assert.equal(hash.digest({foo:1,bar:1}), hash.digest({bar:1,foo:1}))
 
-We're compatible with browserify by using our own js sha1 implementation.
+We're compatible with browserify by using a JavaScript implementation of SHA1.
 
 If you want to use nodejs one, pass `hash.digest(foo, { crypto: require('crypto') })`.
 
