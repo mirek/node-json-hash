@@ -16,6 +16,11 @@ export function digest (a, { algorithm = 'sha1', inputEncoding = 'utf8', outputE
       u('n')
       break
 
+    // undefined
+    case a === undefined:
+      u('n')
+      break
+
     // boolean
     case typeof a === 'boolean':
     case a instanceof Boolean:
