@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "browser": "lib/browser.js",
   "scripts": {
-    "test": "bin/grunt test"
+    "test": "grunt test"
   },
   "repository": {
     "type": "git",
