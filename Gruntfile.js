@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-  grunt.loadNpmTasks('grunt-6to5')
+  grunt.loadNpmTasks('grunt-babel')
   grunt.loadNpmTasks('grunt-contrib-clean')
   grunt.loadNpmTasks('grunt-contrib-copy')
   grunt.loadNpmTasks('grunt-contrib-watch')
@@ -16,7 +16,7 @@ module.exports = function(grunt) {
         }
       }
     },
-    '6to5': {
+    babel: {
       options: {
         sourceMap: true
       },
@@ -42,14 +42,14 @@ module.exports = function(grunt) {
         options: {
           bail: true,
           reporter: 'spec',
-          require: [ '6to5/register' ]
+          require: [ 'babel/register' ]
         },
         src: ['spec/**/*.js']
       }
     }
   })
   grunt.registerTask('test', ['mochaTest'])
-  grunt.registerTask('build', ['copy:crypto', '6to5'])
+  grunt.registerTask('build', ['copy:crypto', 'babel'])
   grunt.registerTask('rebuild', ['clean', 'build'])
   grunt.registerTask('default', ['rebuild'])
 }
