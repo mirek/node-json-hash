@@ -1,6 +1,6 @@
 {
   "name": "json-hash",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "description": "Compute JSON hash.",
   "main": "lib/index.js",
   "browser": "lib/browser.js",
