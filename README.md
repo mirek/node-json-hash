@@ -4,6 +4,9 @@ Generates hash for JSON objects.
 
 ## Usage
 
+    // If you're not on babel use:
+    // require('babel/polyfill')
+
     npm install json-hash
 
     var assert = require('assert')

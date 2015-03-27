@@ -4,11 +4,17 @@ import assert from 'assert'
 import * as crypto from './../src/index'
 import * as browser from './../src/browser'
 
+import bson from 'bson'
+
 // Get digest from browser and crypto based versions.
 function d (s) {
-  let a = browser.digest(s)
-  let b = crypto.digest(s)
-  assert.equal(a, b)
+  let a = null
+  let b = null
+  for (let e in [ undefined, 'binary', 'ascii', 'utf8' ]) {
+    a = browser.digest(s, e)
+    b = crypto.digest(s, e)
+    assert.equal(a, b)
+  }
   return a
 }
 
@@ -57,4 +63,11 @@ describe('jsonHash', () => {
       at: new Date(1401139632803 + 123)
     }))
   })
+
+  it('should handle BSON ObjectId', function () {
+    let a = new bson.ObjectId()
+    let b = new bson.ObjectId()
+    ne(a, b)
+  })
+
 })
