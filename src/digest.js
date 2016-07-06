@@ -58,7 +58,9 @@ export function digest (a, { algorithm = 'sha1', inputEncoding = 'utf8', outputE
     // array
     case Array.isArray(a):
       u('[')
-      a.forEach(e => u('a', d(e)))
+      a.sort((a, b) => {
+        return d(a) < d(b)
+      }).forEach(e => u('a', d(e)));
       u(']')
       break
 

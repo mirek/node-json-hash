@@ -21,4 +21,5 @@ If you want to use nodejs one, pass `hash.digest(foo, { crypto: require('crypto'
 
 ## Changes
 
+* 1.2.0 - Adds support for better hashing of arrays
 * 2.0.0 - defaults to internal js implementation of sha1, pass { crypto: require('crypto') } to use nodejs one.
