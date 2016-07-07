@@ -63,7 +63,7 @@ describe('sha1', function() {
     }
   })
 
-  return it('should handle utf8', function () {
+  it('should handle utf8', function () {
     let r = 'Dopóki nie skorzys­tałem z In­terne­tu, nie wie­działem, że na świecie jest ty­lu idiotów.'
     for (let e in [ undefined, 'binary', 'ascii', 'utf8' ]) {
       assert.equal(ours(r, e), cryptos(r, e))

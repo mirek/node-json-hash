@@ -7,23 +7,23 @@ import * as browser from './../src/browser'
 import bson from 'bson'
 
 // Get digest from browser and crypto based versions.
-function d (s) {
-  let a = null
-  let b = null
-  for (let e in [ undefined, 'binary', 'ascii', 'utf8' ]) {
-    a = browser.digest(s, e)
-    b = crypto.digest(s, e)
-    assert.equal(a, b)
+function d(s, { sets } = {}) {
+  let a = null;
+  let b = null;
+  for (let inputEncoding in [ undefined, 'binary', 'ascii', 'utf8' ]) {
+    a = browser.digest(s, { inputEncoding, sets });
+    b = crypto.digest(s, { inputEncoding, sets });
+    assert.equal(a, b);
   }
-  return a
+  return a;
 }
 
-function eq (a, b) {
-  assert.equal(d(a), d(b))
+function eq(a, b, options) {
+  assert.equal(d(a, options), d(b, options));
 }
 
-function ne (a, b) {
-  assert.notEqual(d(a), d(b))
+function ne(a, b, options) {
+  assert.notEqual(d(a, options), d(b, options));
 }
 
 describe('jsonHash', () => {
@@ -37,6 +37,15 @@ describe('jsonHash', () => {
   it('should have different hashses for different structure', function() {
     ne( [1, [2]], [1, 2] )
   })
+
+  it('should have different hashes for arrays with different order', function () {
+    ne(['foo', 'bar'], ['bar', 'foo']);
+  });
+
+  it('should have same hashes for arrays with different order with sets = true option', function () {
+    eq(['foo', 'bar'], ['bar', 'foo'], { sets: true });
+    eq({ foo: ['foo', 'bar'] }, { foo: ['bar', 'foo'] }, { sets: true });
+  });
 
   it('should have different hashes for 1 as a number and "1" as a string', function() {
     ne( 1, '1' )

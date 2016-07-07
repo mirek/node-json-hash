@@ -1,9 +1,9 @@
 
 // Compute digest for JSON object.
-export function digest (a, { algorithm = 'sha1', inputEncoding = 'utf8', outputEncoding = 'hex', crypto } = {}) {
+export function digest (a, { algorithm = 'sha1', inputEncoding = 'utf8', outputEncoding = 'hex', crypto, sets } = {}) {
   let h = crypto.createHash(algorithm)
   let u = (...args) => h.update(args.join(':'), inputEncoding)
-  let d = a => digest(a, { algorithm, inputEncoding, outputEncoding, crypto })
+  let d = a => digest(a, { algorithm, inputEncoding, outputEncoding, crypto, sets })
   switch (true) {
 
     // undefined
@@ -57,9 +57,15 @@ export function digest (a, { algorithm = 'sha1', inputEncoding = 'utf8', outputE
 
     // array
     case Array.isArray(a):
-      u('[')
-      a.forEach(e => u('a', d(e)))
-      u(']')
+      if (sets) {
+        u('<')
+        a.map(d).sort().forEach(e => u('A', e))
+        u('>')
+      } else {
+        u('[')
+        a.forEach(e => u('a', d(e)))
+        u(']')
+      }
       break
 
     // object
